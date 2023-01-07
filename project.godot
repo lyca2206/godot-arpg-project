@@ -1,0 +1,62 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+_global_script_classes=[{
+"base": "Movable",
+"class": &"Idle",
+"language": &"GDScript",
+"path": "res://utilities/state_machine/states/idle.gd"
+}, {
+"base": "State",
+"class": &"Movable",
+"language": &"GDScript",
+"path": "res://utilities/state_machine/states/movable.gd"
+}, {
+"base": "Movable",
+"class": &"Run",
+"language": &"GDScript",
+"path": "res://utilities/state_machine/states/run.gd"
+}, {
+"base": "Node",
+"class": &"State",
+"language": &"GDScript",
+"path": "res://utilities/state_machine/state.gd"
+}, {
+"base": "CharacterBody2D",
+"class": &"StateMachine",
+"language": &"GDScript",
+"path": "res://utilities/state_machine/state_machine.gd"
+}]
+_global_script_class_icons={
+"Idle": "",
+"Movable": "",
+"Run": "",
+"State": "",
+"StateMachine": ""
+}
+
+[application]
+
+config/name="Action RPG"
+run/main_scene="res://scenes/main/main.tscn"
+config/features=PackedStringArray("4.0", "Forward Plus")
+config/icon="res://icon.svg"
+
+[display]
+
+window/size/viewport_width=320
+window/size/viewport_height=180
+window/size/window_width_override=1280
+window/size/window_height_override=720
+window/stretch/mode="canvas_items"
+
+[rendering]
+
+textures/canvas_textures/default_texture_filter=0
