@@ -1,10 +1,11 @@
-[gd_scene load_steps=31 format=3 uid="uid://3mubqfi3wike"]
+[gd_scene load_steps=32 format=3 uid="uid://3mubqfi3wike"]
 
+[ext_resource type="Script" path="res://scenes/player/player.gd" id="1_iko8w"]
 [ext_resource type="Script" path="res://utilities/state_machine/state_machine.gd" id="1_r3s7q"]
 [ext_resource type="Texture2D" uid="uid://6a50k3cm13v0" path="res://assets/Player/Player.png" id="2_dv27j"]
 [ext_resource type="Texture2D" uid="uid://c7ycy5qfq466k" path="res://assets/Shadows/MediumShadow.png" id="2_oa3bx"]
-[ext_resource type="Script" path="res://utilities/state_machine/states/idle.gd" id="3_hw2w5"]
-[ext_resource type="Script" path="res://utilities/state_machine/states/run.gd" id="3_lsk56"]
+[ext_resource type="Script" path="res://scenes/player/states/idle.gd" id="5_gaw2o"]
+[ext_resource type="Script" path="res://scenes/player/states/run.gd" id="6_d72fl"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_83ch1"]
 radius = 5.0
@@ -230,9 +231,7 @@ transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition
 
 [node name="Player" type="CharacterBody2D"]
 motion_mode = 1
-script = ExtResource("1_r3s7q")
-initial_state = "Idle"
-is_debug_enabled = true
+script = ExtResource("1_iko8w")
 metadata/_edit_group_ = true
 
 [node name="Shadow" type="Sprite2D" parent="."]
@@ -250,14 +249,6 @@ position = Vector2(-0.5, 0)
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_83ch1")
 
-[node name="States" type="Node" parent="."]
-
-[node name="Idle" type="Node" parent="States"]
-script = ExtResource("3_hw2w5")
-
-[node name="Run" type="Node" parent="States"]
-script = ExtResource("3_lsk56")
-
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_1tu46")
@@ -270,3 +261,14 @@ active = true
 parameters/playback = SubResource("AnimationNodeStateMachinePlayback_xs0hc")
 parameters/Idle/blend_position = Vector2(0, 0)
 parameters/Run/blend_position = Vector2(0, 0)
+
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("entity")]
+script = ExtResource("1_r3s7q")
+entity = NodePath("..")
+initial_state = "Idle"
+
+[node name="Idle" type="Node" parent="StateMachine"]
+script = ExtResource("5_gaw2o")
+
+[node name="Run" type="Node" parent="StateMachine"]
+script = ExtResource("6_d72fl")
